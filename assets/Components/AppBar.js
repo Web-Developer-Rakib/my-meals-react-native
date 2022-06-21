@@ -9,7 +9,6 @@ export default function AppBar({ search, setSearchBar, searchBar }) {
       ) : (
         <Appbar.Action icon="magnify" onPress={() => setSearchBar(false)} />
       )}
-      <Appbar.Action icon="dots-vertical" />
     </Appbar.Header>
   );
 }

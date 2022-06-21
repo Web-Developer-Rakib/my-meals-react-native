@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Searchbar } from "react-native-paper";
 import AppBar from "./assets/Components/AppBar";
 import MealsCard from "./assets/Components/MealsCard";
@@ -8,6 +8,7 @@ export default function App() {
   const [searchBar, setSearchBar] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [meals, setMeals] = useState([]);
+
   useEffect(() => {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
       .then((res) => res.json())
@@ -23,16 +24,18 @@ export default function App() {
     );
   };
   return (
-    <ScrollView>
+    <View>
       <AppBar
         search={search}
         setSearchBar={setSearchBar}
         searchBar={searchBar}
       ></AppBar>
       {searchBar}
-      {meals.map((meal) => (
-        <MealsCard meal={meal}></MealsCard>
-      ))}
-    </ScrollView>
+      <ScrollView>
+        {meals.map((meal) => (
+          <MealsCard meal={meal}></MealsCard>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
