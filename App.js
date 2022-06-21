@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from "react";
+import { ScrollView } from "react-native";
+import { Searchbar } from "react-native-paper";
+import AppBar from "./assets/Components/AppBar";
+import MealsCard from "./assets/Components/MealsCard";
 
 export default function App() {
+  const [searchBar, setSearchBar] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [meals, setMeals] = useState([]);
+  useEffect(() => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`)
+      .then((res) => res.json())
+      .then((data) => setMeals(data.meals));
+  }, [searchTerm]);
+
+  const search = () => {
+    setSearchBar(
+      <Searchbar
+        placeholder="Search"
+        onChangeText={(newText) => setSearchTerm(newText)}
+      />
+    );
+  };
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ScrollView>
+      <AppBar
+        search={search}
+        setSearchBar={setSearchBar}
+        searchBar={searchBar}
+      ></AppBar>
+      {searchBar}
+      {meals.map((meal) => (
+        <MealsCard meal={meal}></MealsCard>
+      ))}
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
