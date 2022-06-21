@@ -29,6 +29,7 @@ export default function MealsCard({ meal }) {
         visible={visible}
         hideModal={hideModal}
         strInstructions={strInstructions}
+        strMeal={strMeal}
       ></DescModal>
     </View>
   );

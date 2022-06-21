@@ -1,7 +1,12 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Modal, Portal, Provider } from "react-native-paper";
 
-export default function DescModal({ visible, hideModal, strInstructions }) {
+export default function DescModal({
+  visible,
+  hideModal,
+  strInstructions,
+  strMeal,
+}) {
   return (
     <Provider>
       <Portal>
@@ -10,6 +15,7 @@ export default function DescModal({ visible, hideModal, strInstructions }) {
           onDismiss={hideModal}
           style={styles.modalContent}
         >
+          <Text style={styles.modalTitle}>{strMeal}</Text>
           <ScrollView nestedScrollEnabled={true}>
             <View>
               <Text>{strInstructions}</Text>
@@ -26,5 +32,8 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     marginBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 20,
   },
 });
