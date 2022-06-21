@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { Searchbar } from "react-native-paper";
+import { Searchbar, Text } from "react-native-paper";
 import AppBar from "./assets/Components/AppBar";
 import MealsCard from "./assets/Components/MealsCard";
 
@@ -32,9 +32,20 @@ export default function App() {
       ></AppBar>
       {searchBar}
       <ScrollView>
-        {meals.map((meal) => (
-          <MealsCard meal={meal}></MealsCard>
-        ))}
+        {meals === null ? (
+          <Text
+            style={{
+              fontSize: 20,
+              textAlign: "center",
+              marginTop: 30,
+              color: "red",
+            }}
+          >
+            No meals found!
+          </Text>
+        ) : (
+          meals.map((meal) => <MealsCard meal={meal}></MealsCard>)
+        )}
       </ScrollView>
     </View>
   );
